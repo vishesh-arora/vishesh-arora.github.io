@@ -383,7 +383,12 @@
       transition: all 0.2s;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card .project-desc {
+      flex: 1;
     }
 
     .project-card:hover {
@@ -751,16 +756,26 @@
     <div class="section-inner">
       <div class="section-label">Work</div>
       <h2 class="section-title">Projects</h2>
-      <p class="section-sub">Hands-on AI projects.</p>
+      <p class="section-sub">Hands-on explorations in data analysis and SQL.</p>
       <div class="projects-grid">
 
         <div class="project-card">
           <div class="project-icon">🌍</div>
           <div class="project-name">GeoChain</div>
           <p class="project-desc">An AI-powered geography word game inspired by Atlas. You name a place, and the AI responds with a place starting from your last letter — keep the chain going as long as you can without repeating!</p>
-          <div style="margin-top: 1.2rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.6rem; flex-wrap: wrap;">
             <a href="https://geochain-gules.vercel.app" target="_blank" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; background: rgba(46,111,255,0.1); border: 1px solid rgba(46,111,255,0.3); padding: 0.35rem 1rem; border-radius: 100px;">Play Live</a>
             <a href="https://github.com/vishesh-arora/geochain" target="_blank" style="font-size: 0.8rem; color: var(--muted); font-weight: 600; text-decoration: none; background: rgba(107,122,153,0.08); border: 1px solid rgba(107,122,153,0.25); padding: 0.35rem 1rem; border-radius: 100px;">GitHub Repo</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🍽️</div>
+          <div class="project-name">Restaurant Finder</div>
+          <p class="project-desc">An AI-powered tool that helps you find the best restaurants in any locality based on the occasion — whether it's a date night, a family dinner, or a casual lunch with friends.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.6rem; flex-wrap: wrap;">
+            <a href="https://restaurant-finder-henna.vercel.app" target="_blank" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; background: rgba(46,111,255,0.1); border: 1px solid rgba(46,111,255,0.3); padding: 0.35rem 1rem; border-radius: 100px;">Try Now</a>
+            <a href="https://github.com/vishesh-arora/restaurant-finder" target="_blank" style="font-size: 0.8rem; color: var(--muted); font-weight: 600; text-decoration: none; background: rgba(107,122,153,0.08); border: 1px solid rgba(107,122,153,0.25); padding: 0.35rem 1rem; border-radius: 100px;">GitHub Repo</a>
           </div>
         </div>
 
