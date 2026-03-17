@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Vishesh Arora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --warm: #2d1b0e;
+      --accent: #c8873a;
+      --accent-light: #e8a85a;
+      --cream: #faf7f2;
+      --paper: #f2ede4;
+      --muted: #8a7968;
+      --border: #ddd5c8;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.3rem;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent-light); }
+
+    /* HERO */
+    .hero {
+      min-height: 52vh;
+      background: var(--ink);
+      display: flex; align-items: flex-end;
+      padding: 0 5% 4rem;
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 70% at 90% 30%, rgba(200,135,58,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(200,135,58,0.07) 0%, transparent 60%);
+    }
+
+    /* Decorative number */
+    .hero-bg-number {
+      position: absolute;
+      right: 5%;
+      bottom: -1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(8rem, 18vw, 16rem);
+      color: rgba(200,135,58,0.06);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .hero-tagline {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      max-width: 480px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* MAIN CONTENT */
+    .main { max-width: 1100px; margin: 0 auto; padding: 5rem 5%; }
+
+    /* QUICK FACTS */
+    .facts-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 5rem;
+      box-shadow: 0 4px 24px rgba(26,26,46,0.06);
+    }
+
+    .fact {
+      flex: 1;
+      min-width: 160px;
+      padding: 1.6rem 1.4rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .fact:last-child { border-right: none; }
+    .fact:hover { background: var(--paper); }
+
+    .fact-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .fact-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+    }
+
+    .fact-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    /* SECTION HEADERS */
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--ink);
+      margin-bottom: 3rem;
+    }
+
+    /* TIMELINE */
+    .timeline-section { margin-bottom: 5rem; }
+
+    .timeline {
+      position: relative;
+      padding-left: 0;
+    }
+
+    .timeline-year-group { margin-bottom: 0; }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 120px 1px 1fr;
+      gap: 0 2rem;
+      margin-bottom: 0;
+    }
+
+    .tl-year {
+      text-align: right;
+      padding: 1.8rem 0 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1;
+      padding-top: 1.6rem;
+    }
+
+    .tl-line {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tl-line::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .tl-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--accent);
+      margin-top: 1.7rem;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .tl-dot.special {
+      background: var(--ink);
+      box-shadow: 0 0 0 2px var(--ink);
+      width: 18px; height: 18px;
+    }
+
+    .tl-content {
+      padding: 1.2rem 0 2rem;
+    }
+
+    .tl-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-subtitle {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .tl-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-tag.life { background: rgba(200,135,58,0.12); color: var(--accent); }
+    .tl-tag.edu { background: rgba(26,26,46,0.08); color: var(--ink); }
+    .tl-tag.work { background: rgba(46,111,255,0.1); color: #2e6fff; }
+    .tl-tag.move { background: rgba(40,167,69,0.1); color: #28a745; }
+
+    /* HOBBIES */
+    .hobbies-section { margin-bottom: 5rem; }
+
+    .hobbies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .hobby-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem;
+      transition: all 0.2s;
+    }
+
+    .hobby-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(200,135,58,0.12);
+    }
+
+    .hobby-icon {
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .hobby-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .hobby-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* FUN FACTS */
+    .fun-section {
+      background: var(--ink);
+      border-radius: 24px;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fun-section::before {
+      content: '9';
+      position: absolute;
+      right: 2rem; bottom: -2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 14rem;
+      color: rgba(200,135,58,0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .fun-section .section-heading { color: var(--white); margin-bottom: 2rem; }
+    .fun-section .section-eyebrow { color: var(--accent-light); }
+
+    .fun-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      position: relative; z-index: 1;
+    }
+
+    .fun-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+
+    .fun-item-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .fun-item-text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+
+    .fun-item-text strong {
+      color: var(--white);
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+      color: var(--accent-light);
+    }
+
+    /* BACK BUTTON */
+    .back-section {
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      text-align: center;
+      padding: 1.5rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.82rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.5s ease both; }
+    .hero h1 { animation: fadeUp 0.5s 0.1s ease both; }
+    .hero-tagline { animation: fadeUp 0.5s 0.2s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .tl-item { grid-template-columns: 60px 1px 1fr; gap: 0 1rem; }
+      .tl-year { font-size: 1rem; }
+      .facts-strip { flex-direction: column; }
+      .fact { border-right: none; border-bottom: 1px solid var(--border); }
+      .fact:last-child { border-bottom: none; }
+      .fun-section { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Vishesh <span>Arora</span></div>
+    <a href="/index.html" class="nav-back">
+      ← Back to Portfolio
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-number">9</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">The Human Behind the Work</div>
+      <h1>Beyond the <em>résumé.</em></h1>
+      <p class="hero-tagline">A little about the person behind the product decisions — where I'm from, what I care about, and what I do when I'm not building things.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <div class="main">
+
+
+    <!-- TIMELINE -->
+    <div class="timeline-section">
+      <div class="section-eyebrow">Life So Far</div>
+      <h2 class="section-heading">A Timeline</h2>
+
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-year">Sep '99</div>
+          <div class="tl-line"><div class="tl-dot special"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Life</div>
+            <div class="tl-title">Born in Faridabad</div>
+            <div class="tl-subtitle">18 September, 1999. Faridabad, Haryana — a city that runs on hustle and chai. Lucky number 9, born on the 18th, in the 9th month.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2002</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Life</div>
+            <div class="tl-title">New Home in Faridabad</div>
+            <div class="tl-subtitle">Moved to our family home in Sector 17, Faridabad — the place I still call home.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">~2005</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag edu">School</div>
+            <div class="tl-title">MVN School, Sector 17</div>
+            <div class="tl-subtitle">Where it all started — academics, friendships, and the first spark of curiosity.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2007</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Memory</div>
+            <div class="tl-title">India Wins the T20 World Cup 🏏</div>
+            <div class="tl-subtitle">My first core cricket memory. Watched it unfold as a kid and got completely hooked on the sport from that day on.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2011</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Memory</div>
+            <div class="tl-title">India Wins the ODI World Cup 🏆</div>
+            <div class="tl-subtitle">Dhoni's six. Wankhede. The whole country erupted. One of those nights you never forget.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">Dec '16</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Life</div>
+            <div class="tl-title">First Fracture — Right Ankle</div>
+            <div class="tl-subtitle">Playing basketball. Landed wrong, heard the crack. First (and hopefully last) fracture. Taught me patience the hard way.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">Aug '17</div>
+          <div class="tl-line"><div class="tl-dot special"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag edu">College</div>
+            <div class="tl-title">Left Home for BITS Pilani</div>
+            <div class="tl-subtitle">First time truly on my own. B.E. in Electrical & Electronics + Minor in Finance. The desert campus and the people there shaped how I think.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">May '18</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Travel</div>
+            <div class="tl-title">First Trip with College Friends — Dharamshala</div>
+            <div class="tl-subtitle">First real trip with friends, and my first trekking experience. The mountains got me hooked immediately.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">May '19</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag work">Milestone</div>
+            <div class="tl-title">First Flight ✈️ — Hyderabad Internship</div>
+            <div class="tl-subtitle">Took my first ever flight to Hyderabad for a 2-month internship at Vodafone Idea. New city, new independence.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">Mar '20</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag life">Life</div>
+            <div class="tl-title">Covid — Back to Faridabad</div>
+            <div class="tl-subtitle">The world shut down. Moved back home from Pilani. Did the DMI Finance internship remotely — silver lining of the lockdown era.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">May '21</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag edu">College</div>
+            <div class="tl-title">Graduated from BITS Pilani</div>
+            <div class="tl-subtitle">Four years, a pandemic, countless memories. Closed a chapter that I'll always look back on fondly.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">Jul '21</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag work">Career</div>
+            <div class="tl-title">First Full-Time Job — Smartstaff</div>
+            <div class="tl-subtitle">Joined as a Product Analyst. Day one of the real world — officially a working professional.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">5 Sep '21</div>
+          <div class="tl-line"><div class="tl-dot special"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag move">Move</div>
+            <div class="tl-title">Moved to Bengaluru</div>
+            <div class="tl-subtitle">Packed everything and headed south. Bengaluru's weather, energy, and startup ecosystem made it feel like home faster than expected.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-line"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag work">Career</div>
+            <div class="tl-title">Joined Pixis</div>
+            <div class="tl-subtitle">Grew from Product Analyst to Product Manager over nearly 3 years. Worked across AI models, campaign tools, and data platforms.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-line"><div class="tl-dot special"></div></div>
+          <div class="tl-content">
+            <div class="tl-tag work">Career</div>
+            <div class="tl-title">Joined FRND</div>
+            <div class="tl-subtitle">Currently building at FRND — a voice-first social app solving loneliness in small-town India. Working on Trust & Safety, Retention, and AI.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div class="hobbies-section">
+      <div class="section-eyebrow">When I'm Not Working</div>
+      <h2 class="section-heading">Things I Love</h2>
+      <div class="hobbies-grid">
+        <div class="hobby-card">
+          <span class="hobby-icon">🏏</span>
+          <div class="hobby-name">Cricket & Formula 1</div>
+          <div class="hobby-desc">A die-hard cricket fan and a passionate F1 follower. Match days are sacred.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🔢</span>
+          <div class="hobby-name">Sudoku</div>
+          <div class="hobby-desc">Solving puzzles — mainly Sudoku. A good one can keep me hooked for an hour straight.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🍳</span>
+          <div class="hobby-name">Cooking</div>
+          <div class="hobby-desc">The kitchen is where I experiment. Cooking is product management in disguise — iterate until it tastes right.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">☕</span>
+          <div class="hobby-name">Coffee</div>
+          <div class="hobby-desc">A proper coffee ritual is non-negotiable. Bengaluru's café culture has only made this worse.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🎵</span>
+          <div class="hobby-name">Music</div>
+          <div class="hobby-desc">Always got something playing in the background. Music makes everything — work, runs, travel — better.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🏃</span>
+          <div class="hobby-name">Running</div>
+          <div class="hobby-desc">Lacing up and hitting the road is my reset button. Best way to clear the head after a long week.</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">⛰️</span>
+          <div class="hobby-name">Mountains & Trekking</div>
+          <div class="hobby-desc">There's nothing like a good trek to put things in perspective. The mountains have a way of making problems feel small.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FUN FACTS -->
+    <div class="fun-section">
+      <div class="section-eyebrow">Trivia</div>
+      <h2 class="section-heading">A Few Fun Facts</h2>
+      <div class="fun-grid">
+        <div class="fun-item">
+          <div class="fun-item-icon">🔢</div>
+          <div class="fun-item-text">
+            <strong>Lucky Number</strong>
+            9 — and it shows up everywhere. Born on the 18th (1+8), September is the 9th month.
+          </div>
+        </div>
+        <div class="fun-item">
+          <div class="fun-item-icon">🎂</div>
+          <div class="fun-item-text">
+            <strong>Birthday</strong>
+            18 September — practically a national holiday (at least in my head).
+          </div>
+        </div>
+        <div class="fun-item">
+          <div class="fun-item-icon">🏔️</div>
+          <div class="fun-item-text">
+            <strong>Mountains over beaches</strong>
+            Every time. Something about altitude and cold air just hits differently.
+          </div>
+        </div>
+        <div class="fun-item">
+          <div class="fun-item-icon">🌆</div>
+          <div class="fun-item-text">
+            <strong>Faridabad → Pilani → Bengaluru</strong>
+            Three very different cities. Each one shaped a different version of me.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACK -->
+    <div class="back-section">
+      <a href="/index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Vishesh Arora · vishesh-arora.github.io</p>
+  </footer>
+
+</body>
+</html>
