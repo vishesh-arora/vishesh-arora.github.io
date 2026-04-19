@@ -444,6 +444,123 @@
       padding: 0.2rem 0.65rem; border-radius: 100px;
     }
 
+    /* PROOF OF WORK */
+    #proof-of-work { background: var(--navy); }
+    #proof-of-work .section-label { color: var(--gold); }
+    #proof-of-work .section-title { color: var(--white); }
+    #proof-of-work .section-sub { color: rgba(255,255,255,0.5); }
+
+    .pow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pow-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .pow-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.22);
+      transform: translateY(-3px);
+    }
+
+    .pow-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .pow-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, rgba(46,111,255,0.35), rgba(91,143,255,0.2));
+      border: 1px solid rgba(46,111,255,0.4);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .pow-company-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(240,165,0,0.1);
+      border: 1px solid rgba(240,165,0,0.25);
+      border-radius: 100px;
+      padding: 0.25rem 0.7rem;
+      white-space: nowrap;
+    }
+
+    .pow-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .pow-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    .pow-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pow-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    .pow-chip-blue {
+      background: rgba(46,111,255,0.15);
+      color: var(--accent-light);
+      border: 1px solid rgba(46,111,255,0.3);
+    }
+
+    .pow-chip-gold {
+      background: rgba(240,165,0,0.12);
+      color: #f0c060;
+      border: 1px solid rgba(240,165,0,0.25);
+    }
+
+    .pow-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-decoration: none;
+      margin-top: auto;
+      letter-spacing: 0.01em;
+      transition: gap 0.2s;
+    }
+
+    .pow-card:hover .pow-cta { gap: 0.7rem; }
+
     /* EDUCATION */
     #education { background: var(--off-white); }
 
@@ -702,6 +819,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#proof-of-work">Proof of Work</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="/about.html" style="color: var(--gold);">About Me</a></li>
@@ -716,6 +834,7 @@
     <a href="#skills" onclick="closeMenu()">Skills</a>
     <a href="#experience" onclick="closeMenu()">Experience</a>
     <a href="#projects" onclick="closeMenu()">Projects</a>
+    <a href="#proof-of-work" onclick="closeMenu()">Proof of Work</a>
     <a href="#education" onclick="closeMenu()">Education</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
     <a href="/about.html" class="about-link">About Me</a>
@@ -920,6 +1039,34 @@
           <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.6rem; flex-wrap: wrap;">
             <a href="https://drive.google.com/file/d/13kYzWonp2GzeSQwzYEuY6lUkYbctdaG4/view?usp=drivesdk" target="_blank" style="font-size: 0.8rem; color: var(--accent); font-weight: 600; text-decoration: none; background: rgba(46,111,255,0.1); border: 1px solid rgba(46,111,255,0.3); padding: 0.35rem 1rem; border-radius: 100px;">View Sample</a>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF OF WORK -->
+  <section id="proof-of-work">
+    <div class="section-inner">
+      <div class="section-label">Deep Dives</div>
+      <h2 class="section-title">Proof of Work</h2>
+      <p class="section-sub">End-to-end case studies on products I owned and shipped at FRND.</p>
+      <div class="pow-grid">
+
+        <div class="pow-card">
+          <div class="pow-card-top">
+            <div class="pow-icon">🎙️</div>
+            <span class="pow-company-badge">FRND · 0→1</span>
+          </div>
+          <div class="pow-name">Soul</div>
+          <p class="pow-desc">New users found audio conversations with strangers intimidating. Supply-demand mismatches meant someone wasn't always available to talk. We built an AI voice companion to make conversations instant, natural, and always-on.</p>
+          <div class="pow-chips">
+            <span class="pow-chip pow-chip-blue">Voice AI</span>
+            <span class="pow-chip pow-chip-blue">LLM</span>
+            <span class="pow-chip pow-chip-blue">Prompt Engineering</span>
+            <span class="pow-chip pow-chip-gold">+4% D1 Retention</span>
+          </div>
+          <a href="/soul.html" class="pow-cta">Read Case Study →</a>
         </div>
 
       </div>
