@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soul — Case Study | Vishesh Arora</title>
+  <meta name="description" content="How I built Soul, an AI voice companion at FRND, from 0 to 1 — improving D1 retention by 4%.">
+  <meta name="author" content="Vishesh Arora">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6b;
+      --accent: #2e6fff;
+      --accent-light: #5b8fff;
+      --gold: #f0a500;
+      --white: #ffffff;
+      --off-white: #f5f7fb;
+      --text: #1e2a3a;
+      --muted: #6b7a99;
+      --border: #e2e8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      color: var(--white);
+      font-size: 1.3rem;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-back {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--gold); }
+
+    /* HERO */
+    .case-hero {
+      background: var(--navy);
+      padding: 7rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 80% at 90% 50%, rgba(46,111,255,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 50% at 10% 80%, rgba(240,165,0,0.07) 0%, transparent 60%);
+    }
+
+    .case-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .case-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .case-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    .badge-company {
+      background: rgba(240,165,0,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(240,165,0,0.3);
+    }
+
+    .badge-type {
+      background: rgba(46,111,255,0.15);
+      color: var(--accent-light);
+      border: 1px solid rgba(46,111,255,0.3);
+    }
+
+    .badge-year {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .case-hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .case-tagline {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .case-stat-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .case-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .case-stat .val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .case-stat .lbl {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* CONTENT */
+    .case-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+    }
+
+    .case-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .case-section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      color: var(--navy);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .case-section p {
+      font-size: 0.97rem;
+      color: #3a4a62;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .case-section p:last-child { margin-bottom: 0; }
+
+    /* CALLOUT BLOCK */
+    .callout {
+      background: white;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    /* GOAL CARDS */
+    .goal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .goal-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.3rem;
+    }
+
+    .goal-card h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .goal-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ROLE LIST */
+    .role-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .role-list li {
+      font-size: 0.95rem;
+      color: #3a4a62;
+      padding: 0.55rem 0 0.55rem 1.4rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .role-list li:last-child { border-bottom: none; }
+
+    .role-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    /* TECH STACK */
+    .stack-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+
+    .stack-node {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.6rem 1.1rem;
+      text-align: center;
+    }
+
+    .stack-node .node-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .stack-node .node-val {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .stack-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    /* CHALLENGES */
+    .challenge-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .challenge-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.3rem 1.4rem;
+    }
+
+    .challenge-item h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .challenge-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      background: rgba(46,111,255,0.1);
+      color: var(--accent);
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .challenge-item p {
+      font-size: 0.87rem;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+      line-height: 1.6;
+    }
+
+    .challenge-item .solution {
+      font-size: 0.83rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* IMPACT */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .impact-card {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .impact-card .impact-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .impact-card .impact-lbl {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* LEARNINGS */
+    .learning-list {
+      list-style: none;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .learning-list li {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.55;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .learning-list li::before {
+      content: '—';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* DIVIDER */
+    .case-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3.5rem 0;
+    }
+
+    /* FOOTER NAV */
+    .case-footer-nav {
+      background: var(--navy);
+      padding: 2.5rem 5%;
+      text-align: center;
+    }
+
+    .case-footer-nav p {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .case-footer-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .case-footer-nav a:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    footer {
+      background: #060f1d;
+      text-align: center;
+      padding: 1.5rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.82rem;
+    }
+
+    /* BACK TO TOP */
+    #backToTop {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      background: rgba(10,22,40,0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.75);
+      padding: 0.75rem 0.9rem 0.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    @media (max-width: 768px) {
+      .case-stat-row { gap: 1.5rem; }
+      .goal-grid { grid-template-columns: 1fr; }
+      .stack-flow { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Vishesh <span>Arora</span></a>
+    <a href="/#proof-of-work" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="case-hero">
+    <div class="case-hero-inner">
+      <div class="case-meta">
+        <span class="case-badge badge-company">FRND</span>
+        <span class="case-badge badge-type">0→1 Product</span>
+        <span class="case-badge badge-type">Voice AI</span>
+      </div>
+      <h1>Soul — <em>Voice AI Companion</em></h1>
+      <p class="case-tagline">Building an always-on AI companion to reduce new user friction and solve supply-demand gaps on an audio social platform.</p>
+      <div class="case-stat-row">
+        <div class="case-stat">
+          <span class="val">+4%</span>
+          <span class="lbl">D1 Retention</span>
+        </div>
+        <div class="case-stat">
+          <span class="val">0→1</span>
+          <span class="lbl">Full Ownership</span>
+        </div>
+        <div class="case-stat">
+          <span class="val">3</span>
+          <span class="lbl">AI APIs Integrated</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="case-body">
+
+    <!-- PROBLEM -->
+    <div class="case-section">
+      <div class="case-section-label">The Problem</div>
+      <h2>Users wanted to talk. The experience wasn't ready for them.</h2>
+      <p>FRND is an audio social platform where users come primarily for conversations. But for new users, the experience had a few critical gaps that hurt both onboarding and retention.</p>
+      <div class="goal-grid">
+        <div class="goal-card">
+          <h4>First conversation friction</h4>
+          <p>Talking to a stranger felt awkward and intimidating, especially for new users just finding their footing on the platform.</p>
+        </div>
+        <div class="goal-card">
+          <h4>Supply-demand mismatch</h4>
+          <p>Conversations depended on another user being available. During peak hours, early mornings, and festive periods, this broke down frequently.</p>
+        </div>
+        <div class="goal-card">
+          <h4>Inconsistent experience</h4>
+          <p>Quality of conversation varied wildly depending on who was online. There was no reliable floor for what a new user would experience.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <p>The combined effect: new users who couldn't find someone to talk to — or found the experience too intimidating — dropped off early, never reaching the engagement that makes FRND sticky.</p>
+      </div>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- SOLUTION -->
+    <div class="case-section">
+      <div class="case-section-label">The Solution</div>
+      <h2>Soul — an AI voice companion that's always there.</h2>
+      <p>We built Soul: an AI-powered voice companion designed to make conversations instant, natural, and available 24/7. The idea was simple — give new users a safe, non-judgmental space to start talking, with no dependency on another human being online.</p>
+      <div class="goal-grid">
+        <div class="goal-card">
+          <h4>Reduce first-conversation friction</h4>
+          <p>Start with a warm, forgiving AI before talking to real users — lowering the barrier for new users significantly.</p>
+        </div>
+        <div class="goal-card">
+          <h4>Always-on availability</h4>
+          <p>No more empty waiting rooms. Soul is available at any hour — peak traffic or 3am — removing supply-demand failure entirely.</p>
+        </div>
+        <div class="goal-card">
+          <h4>Consistent quality</h4>
+          <p>By controlling the conversational experience end-to-end, we could ensure a reliable, warm, and engaging interaction every time.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- MY ROLE -->
+    <div class="case-section">
+      <div class="case-section-label">My Role</div>
+      <h2>End-to-end ownership from zero.</h2>
+      <p>This was a 0→1 build with no prior template. I owned the product entirely across all dimensions.</p>
+      <ul class="role-list">
+        <li>Defined the problem space, use cases, and UX flows from scratch</li>
+        <li>Worked closely with engineering on the LLM + voice pipeline architecture</li>
+        <li>Drove prompt design and iterated on conversational quality continuously</li>
+        <li>Set success metrics and led the experimentation roadmap</li>
+        <li>Collaborated with moderation and safety teams to build guardrails</li>
+      </ul>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- TECH STACK -->
+    <div class="case-section">
+      <div class="case-section-label">Tech Stack</div>
+      <h2>A real-time voice pipeline built for low latency.</h2>
+      <p>The architecture needed to be fast — voice interactions are unforgiving when it comes to response time. We chose Sarvam for both STT and TTS given its strong performance on Indian-accented speech and regional language support, which is core to FRND's user base.</p>
+      <div class="stack-flow">
+        <div class="stack-node">
+          <div class="node-label">Input</div>
+          <div class="node-val">User Audio</div>
+        </div>
+        <div class="stack-arrow">→</div>
+        <div class="stack-node">
+          <div class="node-label">STT</div>
+          <div class="node-val">Sarvam</div>
+        </div>
+        <div class="stack-arrow">→</div>
+        <div class="stack-node">
+          <div class="node-label">LLM</div>
+          <div class="node-val">ChatGPT</div>
+        </div>
+        <div class="stack-arrow">→</div>
+        <div class="stack-node">
+          <div class="node-label">TTS</div>
+          <div class="node-val">Sarvam</div>
+        </div>
+        <div class="stack-arrow">→</div>
+        <div class="stack-node">
+          <div class="node-label">Output</div>
+          <div class="node-val">AI Response</div>
+        </div>
+      </div>
+      <p style="margin-top: 1rem;">The LLM received a carefully crafted system prompt alongside a rolling window of the last N messages to maintain conversational context without exceeding token limits.</p>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- CHALLENGES -->
+    <div class="case-section">
+      <div class="case-section-label">Key Challenges</div>
+      <h2>Nothing worked perfectly on day one.</h2>
+      <div class="challenge-list">
+        <div class="challenge-item">
+          <h4><span class="challenge-num">1</span> Conversation quality felt robotic</h4>
+          <p>Early responses were generic, flat, and didn't feel like a real companion. Users could immediately sense they were talking to a machine.</p>
+          <div class="solution">Fix: Continuous prompt iteration + adding rolling message context to make responses feel aware and natural.</div>
+        </div>
+        <div class="challenge-item">
+          <h4><span class="challenge-num">2</span> Users dropping early in conversations</h4>
+          <p>A significant number of users were abandoning within the first few messages — the critical window where the product needed to hook them.</p>
+          <div class="solution">Fix: Message-level drop-off analysis, improving the first 3 responses specifically, and adding AI-initiated messages to keep conversation going.</div>
+        </div>
+        <div class="challenge-item">
+          <h4><span class="challenge-num">3</span> Safety and moderation</h4>
+          <p>An AI voice companion on a social platform needed robust guardrails — users would inevitably test boundaries or find themselves in sensitive conversations.</p>
+          <div class="solution">Fix: Guardrails baked into the system prompt + a separate moderation layer for flagging sensitive topics before they reached the LLM response.</div>
+        </div>
+        <div class="challenge-item">
+          <h4><span class="challenge-num">4</span> Latency in voice responses</h4>
+          <p>Any perceptible lag in a voice conversation breaks the immersion entirely. The STT → LLM → TTS pipeline had to be optimised end-to-end.</p>
+          <div class="solution">Fix: Worked closely with engineering to profile and reduce latency at each step of the pipeline.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- IMPACT -->
+    <div class="case-section">
+      <div class="case-section-label">Impact</div>
+      <h2>Early results validated the direction.</h2>
+      <p>Soul shipped and showed meaningful signal on the metrics that mattered most at the stage of the product.</p>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-val">+4%</div>
+          <div class="impact-lbl">Improvement in D1 Retention</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-val">✓</div>
+          <div class="impact-lbl">Voice validated as a strong AI interaction layer</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="case-divider">
+
+    <!-- LEARNINGS -->
+    <div class="case-section">
+      <div class="case-section-label">Key Learnings</div>
+      <h2>What building Soul taught me.</h2>
+      <ul class="learning-list">
+        <li>In conversational products, communication is the product. Tone, pacing, and word choice are as critical as any feature decision.</li>
+        <li>Small changes in response style can have outsized retention impact — what feels like a detail to an engineer is the entire experience for a user.</li>
+        <li>Combining qualitative review (listening to actual conversations) with data signals (message-level drop-offs) is the only reliable iteration loop for LLM products.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- FOOTER NAV -->
+  <div class="case-footer-nav">
+    <p>Explore more work</p>
+    <a href="/#proof-of-work">← Back to Proof of Work</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Vishesh Arora &middot; Built with HTML &amp; hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+    <span style="font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; color:rgba(255,255,255,0.4);">Top</span>
+  </button>
+
+  <script>
+    const btn = document.getElementById('backToTop');
+    let scrollTimer;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        if (window.scrollY > 300) {
+          btn.style.opacity = '1';
+          btn.style.transform = 'translateY(0)';
+          btn.style.pointerEvents = 'auto';
+        } else {
+          btn.style.opacity = '0';
+          btn.style.transform = 'translateY(10px)';
+          btn.style.pointerEvents = 'none';
+        }
+      }, 50);
+    });
+  </script>
+
+</body>
+</html>
